@@ -1,0 +1,15 @@
+<h1>Все записи</h1>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <h3>
+        <%= article.subject %>
+      </h3>
+      <p>
+        <%= article.content %>
+      </p>
+    </li>
+  <% end -%>
+</ul>
+<%= link_to 'Новая запись', new_article_path %>

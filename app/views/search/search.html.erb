@@ -1,0 +1,19 @@
+<h1>Поиск по записям</h1>
+
+<%= form_for search_path, method: :get do |f| %>
+  <p>
+    <%= f.label "Искать текст:" %>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag "Найти", name: nil %>
+  </p>
+<% end %>
+
+<ul>
+  <% @articles.each do |article| %>
+    <li>
+      <h3>
+        <%= link_to article.subject, controller: "articles", action: "show", id: article._id%>
+      </h3>
+    </li>
+  <% end %>
+</ul>
