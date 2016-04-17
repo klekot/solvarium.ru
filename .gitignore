@@ -9,8 +9,12 @@
 
 # Ignore db config.
 /config/database.yml
+/config/secrets.yml
 
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore application configuration
+/config/application.yml
