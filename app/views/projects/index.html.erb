@@ -1,0 +1,15 @@
+<h1>Все проекты</h1>
+
+<ul>
+  <% @projects.each do |project| %>
+    <li>
+      <h3>
+        <%= link_to project.title, project %>
+      </h3>
+      <p>
+        <%= project.description %>
+      </p>
+    </li>
+  <% end -%>
+</ul>
+<%= link_to 'Новый проект', new_project_path %>

@@ -4,7 +4,7 @@
   <% @articles.each do |article| %>
     <li>
       <h3>
-        <%= article.subject %>
+        <%= link_to article.subject, article %>
       </h3>
       <p>
         <%= article.content %>
