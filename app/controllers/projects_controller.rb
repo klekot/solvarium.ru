@@ -14,10 +14,17 @@ class ProjectsController < ApplicationController
     @project = Project.new project_params
     @project.user_id = current_user.id
     if @project.save
+      if params[:project][:current] == '1'
+        current_user.current_project_id = @project.id
+        current_user.save
+      end
       redirect_to @project
     else
       render 'new'
     end
+  end
+
+  def edit
   end
 
   private

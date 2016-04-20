@@ -14,6 +14,8 @@ class ArticlesController < ApplicationController
     @article = Article.new article_params
     @article.user_id = current_user.id
     if @article.save
+      @projects = Project.where(id: current_user.current_project_id)
+      @article.projects << @projects
       redirect_to @article
     else
       render 'new'

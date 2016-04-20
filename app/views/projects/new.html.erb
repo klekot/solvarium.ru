@@ -25,6 +25,11 @@
   </p>
 
   <p>
+    <%= f.label 'Сделать текущим:' %>
+    <%= f.check_box :current, value: 1 %>
+  </p>
+
+  <p>
     <%= f.submit 'Сохранить' %>
   </p>
 <% end %>

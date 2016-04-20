@@ -19,54 +19,58 @@
 
 </head>
 <body>
-
 	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	  <div class="container">
-	    <div class="navbar-header">
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-	        <span class="sr-only">Toggle navigation</span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	        <span class="icon-bar"></span>
-	      </button>
-	      <%= link_to 'solvarium.ru', root_path, class: "navbar-brand" %>
-	    </div>
-	    <div> 
-	    <div class="collapse navbar-collapse" style="float: left;">
-	      <ul class="nav navbar-nav">
-	        <li class="active"><%= link_to 'Лента', articles_path %></li>
-	        	<% if user_signed_in? %>
-	        <li><%= link_to 'Проекты', projects_path %></li>
-	        <% end %>
-	        <li><%= link_to 'Поиск', search_path %></li>
-	      </ul>
-	    </div>
-	    <div class="collapse navbar-collapse" style="float: right;">
-	      <ul class="nav navbar-nav">
-        	<% if user_signed_in? %>
-        	    <li><a><span style="color: yellow;">Здравствуйте, <%= current_user.email %></span></a></li>
-        	    <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
-        	<% else %>
-        	    <li><%= link_to 'Войти', new_user_session_path %></li><li><%= link_to 'Зарегистрироваться', new_user_registration_path %></li>
-        	<% end %>
-	      </ul>
-	    </div><!--/.nav-collapse -->
-	    </div>
-	    <div>
-	    	
-	    </div>
-	  </div>
-	</div>
-
-	<div class="container-fluid">
-		<div class="row-fluid">
-			<p class="notice"><%= notice %></p>
-			<p class="alert"><%= alert %></p>
-			<div class="span8">
-
+		<div class="container-fluid">
+			<div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			    <span class="sr-only">Toggle navigation</span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			    <span class="icon-bar"></span>
+			  </button>
+			  <%= link_to 'solvarium.ru', root_path, class: "navbar-brand" %>
 			</div>
-			<div class="span4">
+			<div> 
+			    <div class="collapse navbar-collapse" style="float: left;">
+			      <ul class="nav navbar-nav">
+			        <li class="active"><%= link_to 'Лента', articles_path %></li>
+			        <% if user_signed_in? %>
+			          <li><%= link_to 'Проекты', projects_path %></li>
+			        <% end %>
+				    <li><%= link_to 'Теги', tags_path %></li>
+			        <li><%= link_to 'Поиск', search_path %></li>
+			      </ul>
+			    </div>
+			    <div class="collapse navbar-collapse" style="float: right;">
+			      <ul class="nav navbar-nav">
+			    	<% if user_signed_in? %>
+			    	    <li><a><span style="color: yellow;">Здравствуйте, <%= current_user.email %></span></a></li>
+			    	    <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
+			    	<% else %>
+			    	    <li><%= link_to 'Войти', new_user_session_path %></li><li><%= link_to 'Зарегистрироваться', new_user_registration_path %></li>
+			    	<% end %>
+			      </ul>
+			    </div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	<% if current_user %>
+		<div class="current_project_panel">
+	      <p>
+	      	Ваш текущий проект: <%= Project.find(current_user.current_project_id).title %>
+	      </p>
+		</div>
+	<% end %>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+			</div>
+			<div class="col-md-8">
 				<%= yield %>
+			</div>
+			<div class="col-md-2">
+				<p class="notice"><%= notice %></p>
+				<p class="alert"><%= alert %></p>
 			</div>
 		</div>
 	</div><!-- /.container -->

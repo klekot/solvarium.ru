@@ -1,15 +1,45 @@
-<h1>Все проекты</h1>
 
-<ul>
+<table width="100%">
+  <thead>
+    <h1>Все проекты</h1>
+  </thead>
+  <tbody>
   <% @projects.each do |project| %>
-    <li>
-      <h3>
-        <%= link_to project.title, project %>
-      </h3>
-      <p>
-        <%= project.description %>
-      </p>
-    </li>
-  <% end -%>
-</ul>
+    <tr>
+      <td>
+        <% if current_user.current_project_id == project.id %>
+          <p>
+            Текущий проект
+          </p>
+        <% else %>
+          <p>
+            Перейти к проекту
+          </p>
+        <% end %>
+      </td>
+      <td>
+          <p>
+            <%= link_to project.title, project %>
+          </p>
+      </td>
+      <td>
+        <p>
+          <%= project.description %>
+        </p>
+      </td>
+      <td>
+        <p>
+          <%= link_to 'Редактировать', edit_project_path(project.id) %>
+        </p>
+      </td>
+      <td>
+        <p>
+          <%= link_to 'Удалить', project_path(project), method: :delete, remote: true, data: { confirm: 'Вы уверены, что хотите удалить выбранный проект? Восстановить его будет невозможно, отбор записей по этому проекту также станет недоступен. Удалить?' } %>
+        </p>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+  
 <%= link_to 'Новый проект', new_project_path %>
