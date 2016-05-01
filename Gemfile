@@ -15,6 +15,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'figaro'
 gem 'bootstrap-sass'
 gem 'sass-rails'
+gem 'rails-i18n', '~> 4.0.0'
+gem 'devise-i18n'
 
 group :development, :test do
   gem 'byebug'

@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :articles
   resources :projects
   resources :tags
+  post 'projects/change_current_project'
 end

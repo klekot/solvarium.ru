@@ -16,6 +16,7 @@
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Bad+Script&subset=latin,cyrillic);
 
+
 .current_project_panel {
 	font-family: 'Bad Script', cursive;
 	font-size: 30px;
@@ -27,4 +28,51 @@
 	p {
 		text-align: center;
 	}
+}
+
+.welcome_div {
+	h1 {
+		font-family: 'Bad Script', cursive;
+		font-weight: bold;
+		font-size: 90px;
+		text-align: center;
+		padding-bottom: 50px;
+	}
+	table {
+		    margin: auto;
+
+	}
+	padding-top: 100px;
+}
+
+.slogan {
+	margin-left: 100px;
+	font-family: 'Bad Script', cursive;
+	font-size: 40px;
+	float: right;
+}
+
+.image-p {
+	padding-left: 30px;
+}
+
+.books_image {
+	width: 330px;
+	float: right;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 50px;
+}
+
+#footer {
+ 	background:#ffffff;
+ 	color: #cccccc;
+ 	position: relative;
+	margin-top: 200px; /* negative value of footer height */
+	height: 50px;
+	clear:both;
 }

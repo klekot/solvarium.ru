@@ -27,6 +27,12 @@ class ProjectsController < ApplicationController
   def edit
   end
 
+  def change_current_project
+    current_user.current_project_id = params["new_current_id"]
+    current_user.save
+    render 'home/index'
+  end
+
   private
 
   def project_params
