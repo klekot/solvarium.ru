@@ -68,11 +68,22 @@
 	margin-bottom: 50px;
 }
 
-#footer {
- 	background:#ffffff;
- 	color: #cccccc;
- 	position: relative;
-	margin-top: 200px; /* negative value of footer height */
-	height: 50px;
-	clear:both;
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 30px;
+  color: #cccccc;
+  background-color: #fff;
 }

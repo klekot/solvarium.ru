@@ -11,88 +11,91 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419070159) do
+ActiveRecord::Schema.define(version: 20160502204430) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.string   "type",       limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "articles", force: :cascade do |t|
-    t.string   "subject",    limit: 255
-    t.text     "content",    limit: 65535
-    t.integer  "user_id",    limit: 4,                     null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.boolean  "private",                  default: false, null: false
+    t.string   "subject"
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean  "private"
   end
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "articles_projects", id: false, force: :cascade do |t|
-    t.integer "article_id", limit: 4
-    t.integer "project_id", limit: 4
+    t.integer "articles_id"
+    t.integer "projects_id"
   end
 
-  add_index "articles_projects", ["article_id"], name: "index_articles_projects_on_article_id", using: :btree
-  add_index "articles_projects", ["project_id"], name: "index_articles_projects_on_project_id", using: :btree
+  add_index "articles_projects", ["articles_id"], name: "index_articles_projects_on_articles_id", using: :btree
+  add_index "articles_projects", ["projects_id"], name: "index_articles_projects_on_projects_id", using: :btree
 
   create_table "articles_tags", id: false, force: :cascade do |t|
-    t.integer "article_id", limit: 4
-    t.integer "tag_id",     limit: 4
+    t.integer "articles_id"
+    t.integer "tags_id"
   end
 
-  add_index "articles_tags", ["article_id"], name: "index_articles_tags_on_article_id", using: :btree
-  add_index "articles_tags", ["tag_id"], name: "index_articles_tags_on_tag_id", using: :btree
+  add_index "articles_tags", ["articles_id"], name: "index_articles_tags_on_articles_id", using: :btree
+  add_index "articles_tags", ["tags_id"], name: "index_articles_tags_on_tags_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.text     "content",    limit: 65535
-    t.integer  "user_id",    limit: 4
-    t.integer  "article_id", limit: 4
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.text     "content"
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "comments", ["article_id"], name: "index_comments_on_article_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
-    t.integer  "user_id",     limit: 4
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.boolean  "private",                   default: false, null: false
+    t.string   "title"
+    t.text     "description"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.boolean  "private"
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "name",                   limit: 255
-    t.integer  "account_id",             limit: 4
-    t.integer  "current_project_id",     limit: 4
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.integer  "account_id"
+    t.integer  "current_project_id"
+    t.string   "name"
   end
 
   add_index "users", ["account_id"], name: "index_users_on_account_id", using: :btree
