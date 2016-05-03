@@ -12,7 +12,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 
 set :domain, 'k1i.ru'
 set :deploy_to, '/home/solvarium/www/solvarium.ru'
-set :repository, 'https://github.com/klekot/solvarium.git'
+set :repository, 'https://github.com/klekot/solvarium.ru.git'
 set :branch, 'master'
 
 # For system-wide RVM install.
