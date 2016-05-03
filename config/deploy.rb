@@ -11,7 +11,7 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
 set :domain, 'k1i.ru'
-set :deploy_to, '/home/solvarium/www/solvarium.ru'
+set :deploy_to, '/home/wordside/www/solvarium.ru'
 set :repository, 'https://github.com/klekot/solvarium.ru.git'
 set :branch, 'master'
 
@@ -23,7 +23,7 @@ set :branch, 'master'
 set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'config/application.yml', 'log']
 
 # Optional settings:
-set :user, 'solvarium'    # Username in the server to SSH to.
+set :user, 'wordside'    # Username in the server to SSH to.
 set :port, '65000'     # SSH port number.
 #   set :forward_agent, true     # SSH forward_agent.
 
