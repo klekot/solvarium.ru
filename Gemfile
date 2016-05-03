@@ -27,3 +27,7 @@ group :development do
   gem 'spring'
   gem 'mina'
 end
+
+group :production do
+  gem 'passenger'
+end
