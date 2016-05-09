@@ -59,9 +59,9 @@
   </div>
   <% if current_user and !current_user.current_project_id.nil? %>
     <div class="current_project_panel">
-        <p>
-          Ваш текущий проект: <%= Project.find(current_user.current_project_id).title %>
-        </p>
+        <div>
+          <p>Ваш текущий проект: <%= Project.find(current_user.current_project_id).title %>  <%= link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить запись</span>'.html_safe, new_article_path, class: "btn btn-info" %></p>
+        </div>
     </div>
   <% else %>
     <div class="current_project_panel"></div>

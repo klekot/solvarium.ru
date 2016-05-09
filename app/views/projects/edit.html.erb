@@ -1,6 +1,6 @@
 <h1>Редактировать проект</h1>  
 
-<%= form_for :project, url: projects_path do |f| %>
+<%= form_for(@project, :url => {:action => 'update', :id => @project.id}) do |f| %>
 
   <% if not @project.nil? and @project.errors.any? %>
   <div id="error_explanation">
@@ -16,18 +16,15 @@
 
   <p>
     <%= f.label 'Название:' %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, value: @project.title %>
   </p>
 
   <p>
     <%= f.label 'Описание:' %><br>
-    <%= f.text_area :description %>
+    <%= f.text_area :description, value: @project.description %>
   </p>
 
-  <p>
-    <%= f.label 'Сделать текущим:' %>
-    <%= f.check_box :current, value: 1 %>
-  </p>
+
 
   <p>
     <%= f.submit 'Сохранить' %>

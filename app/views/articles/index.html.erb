@@ -1,13 +1,10 @@
 <% if user_signed_in? %>
-  <h1><span class="glyphicon glyphicon-list-alt"> Все записи</span></h1>
-  <p>
-    <%= link_to '<span class="glyphicon glyphicon-plus-sign"> Добавить</span>'.html_safe, new_article_path, class: "btn btn-success" %>
-  </p>
+  <h1><span class="glyphicon glyphicon-list-alt"></span> Все записи</h1>
   <!-- Nav tabs -->
   <ul class="nav nav-tabs">
-    <li class="active"><a href="#common" data-toggle="tab">Общая лента</a></li>
+    <li><a href="#common" data-toggle="tab">Общая лента</a></li>
     <li><a href="#private" data-toggle="tab">Личная лента</a></li>
-    <li><a href="#project" data-toggle="tab">Лента проекта</a></li>
+    <li class="active"><a href="#project" data-toggle="tab">Лента проекта "<%= Project.find(current_user.current_project_id).title %>"</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -16,7 +13,7 @@
       <%= render partial: 'shared/record', locals: {articles: @articles_common } %>
     </div>
     <div class="tab-pane fade" id="private">
-      <%= render partial: 'shared/record', locals: {articles: @articles_privat } %>
+      <%= render partial: 'shared/record', locals: {articles: @articles_my_own } %>
     </div>
     <div class="tab-pane fade" id="project">
       <%= render partial: 'shared/record', locals: {articles: @articles_project } %>

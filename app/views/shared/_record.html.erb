@@ -1,12 +1,22 @@
-<ul>
+<table class="table table-hover">
   <% articles.each do |article| %>
-    <li>
-      <h3>
-        <%= link_to article.subject, article %>
-      </h3>
-      <p>
-        <%= article.content %>
-      </p>
-    </li>
+    <tr>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+            <%= link_to article.subject, article %>
+          <div style="float: right;">
+            <p style="font-size: 10px; margin-top: -5px; margin-bottom: 0px;">Автор: <%= link_to User.find(article.user_id).name, User.find(article.user_id) %></p>
+            <p style="font-size: 10px;">Дата создания: <%= article.created_at.strftime("%d.%m.%Y") %></p>
+          </div>
+        </div>
+        <div class="panel-body">
+          <% if article.content.size > 100 %>
+            <p><%= article.content[0, 300] + '...' %><i><%= link_to(' Читать полностью', article, { style: "font-size: 12px; color: red;" }) %></i></p>
+          <% else %>
+            <p><%= article.content %></p>
+          <% end %>
+        </div>
+      </div>
+    </tr>
   <% end -%>
-</ul>
+</table>

@@ -12,5 +12,9 @@ class ApplicationController < ActionController::Base
   devise_parameter_sanitizer.for(:sign_up) << :name << :access
   devise_parameter_sanitizer.for(:account_update) << :name << :access
   end
+  
+  def after_sign_in_path_for(resource)
+    '/articles' # Or :prefix_to_your_route
+  end
 
 end

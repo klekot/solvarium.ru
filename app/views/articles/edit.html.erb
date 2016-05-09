@@ -1,6 +1,6 @@
-<h1>Новая запись</h1>  
+<h1>Редактировать запись</h1>  
 
-<%= form_for :article, url: articles_path do |f| %>
+<%= form_for(@article , :url => {:action => 'update', :id => @article.id}) do |f| %>
 
   <% if not @article.nil? and @article.errors.any? %>
   <div id="error_explanation">
@@ -16,12 +16,12 @@
 
   <p>
     <%= f.label 'Название:' %><br>
-    <%= f.text_field :subject %>
+    <%= f.text_field :subject, value: @article.subject %>
   </p>
 
   <p>
     <%= f.label 'Содержание:' %><br>
-    <%= f.text_area :content %>
+    <%= f.text_area :content, value: @article.content %>
   </p>
 
   <p>
@@ -31,7 +31,7 @@
 
   <p>
     <%= f.label 'Транслировать в общую ленту?' %><br>
-    <%= f.check_box :common %>
+    <%= f.check_box :common, value: @article.common %>
   </p>
 
   <p>

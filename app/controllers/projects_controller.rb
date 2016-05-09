@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_action :correct_current_project, only: :destroy
+  
   def index
     @projects = Project.where(user_id: current_user.id)
   end
@@ -25,17 +27,41 @@ class ProjectsController < ApplicationController
   end
 
   def edit
+    @project = Project.find params[:id]
+  end
+  
+  def update
+    @project = Project.find params[:id]
+    if @project.update_attributes project_params
+      if params[:project][:current] == '1'
+        current_user.current_project_id = @project.id
+        current_user.save
+      end
+      redirect_to projects_path
+    else
+      render 'edit'
+    end
+  end
+  
+  def destroy
+    Project.destroy(params[:id])
+    redirect_to projects_path
   end
 
   def change_current_project
     current_user.current_project_id = params["new_current_id"]
     current_user.save
-    render 'home/index'
+    redirect_to articles_path
   end
 
   private
 
   def project_params
     params.require(:project).permit :title, :description
+  end
+  
+  def correct_current_project
+    current_user.current_project_id = Project.first.id
+    current_user.save
   end
 end
