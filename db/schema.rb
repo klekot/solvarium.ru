@@ -34,20 +34,20 @@ ActiveRecord::Schema.define(version: 20160502204430) do
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
 
   create_table "articles_projects", id: false, force: :cascade do |t|
-    t.integer "articles_id"
-    t.integer "projects_id"
+    t.integer "article_id"
+    t.integer "project_id"
   end
 
-  add_index "articles_projects", ["articles_id"], name: "index_articles_projects_on_articles_id", using: :btree
-  add_index "articles_projects", ["projects_id"], name: "index_articles_projects_on_projects_id", using: :btree
+  add_index "articles_projects", ["article_id"], name: "index_articles_projects_on_article_id", using: :btree
+  add_index "articles_projects", ["project_id"], name: "index_articles_projects_on_project_id", using: :btree
 
   create_table "articles_tags", id: false, force: :cascade do |t|
-    t.integer "articles_id"
-    t.integer "tags_id"
+    t.integer "article_id"
+    t.integer "tag_id"
   end
 
-  add_index "articles_tags", ["articles_id"], name: "index_articles_tags_on_articles_id", using: :btree
-  add_index "articles_tags", ["tags_id"], name: "index_articles_tags_on_tags_id", using: :btree
+  add_index "articles_tags", ["article_id"], name: "index_articles_tags_on_article_id", using: :btree
+  add_index "articles_tags", ["tag_id"], name: "index_articles_tags_on_tag_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 20160502204430) do
     t.integer  "user_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.boolean  "private"
   end
 
   add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree

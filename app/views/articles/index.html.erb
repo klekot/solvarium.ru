@@ -1,15 +1,30 @@
-<h1>Все записи</h1>
+<% if user_signed_in? %>
+  <h1><span class="glyphicon glyphicon-list-alt"> Все записи</span></h1>
+  <p>
+    <%= link_to '<span class="glyphicon glyphicon-plus-sign"> Добавить</span>'.html_safe, new_article_path, class: "btn btn-success" %>
+  </p>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="active"><a href="#common" data-toggle="tab">Общая лента</a></li>
+    <li><a href="#private" data-toggle="tab">Личная лента</a></li>
+    <li><a href="#project" data-toggle="tab">Лента проекта</a></li>
+  </ul>
 
-<ul>
-  <% @articles.each do |article| %>
-    <li>
-      <h3>
-        <%= link_to article.subject, article %>
-      </h3>
-      <p>
-        <%= article.content %>
-      </p>
-    </li>
-  <% end -%>
-</ul>
-<%= link_to 'Новая запись', new_article_path %>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="common">
+      <%= render partial: 'shared/record', locals: {articles: @articles_common } %>
+    </div>
+    <div class="tab-pane fade" id="private">
+      <%= render partial: 'shared/record', locals: {articles: @articles_privat } %>
+    </div>
+    <div class="tab-pane fade" id="project">
+      <%= render partial: 'shared/record', locals: {articles: @articles_project } %>
+    </div>
+  </div>
+<% else %>
+  <h1><span class="glyphicon glyphicon-list-alt" /></span> Общие записи</h1>
+  <div>
+    <%= render partial: 'shared/record', locals: {articles: @articles_common } %>
+  </div>
+<% end %>

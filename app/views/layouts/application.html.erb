@@ -1,91 +1,94 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Solvarium</title>
-	<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-	<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-	<%= csrf_meta_tags %>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solvarium</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
 
-	<!-- Bootstrap -->
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-	<![endif]-->
+  <!-- Bootstrap -->
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
 
 </head>
 <body>
-	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container-fluid">
-			<div class="navbar-header">
-			  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-			    <span class="sr-only">Toggle navigation</span>
-			    <span class="icon-bar"></span>
-			    <span class="icon-bar"></span>
-			    <span class="icon-bar"></span>
-			  </button>
-			  <%= link_to 'solvarium.ru', root_path, class: "navbar-brand" %>
-			</div>
-			<div> 
-			    <div class="collapse navbar-collapse" style="float: left;">
-			      <ul class="nav navbar-nav">
-			        <% if user_signed_in? %>
-			          <li><%= link_to 'Лента', articles_path %></li>
-			          <li><%= link_to 'Проекты', projects_path %></li>
-			          <li><%= link_to 'Теги', tags_path %></li>
-			          <li><%= link_to 'Поиск', search_path %></li>
-			        <% end %>
-				    
-			      </ul>
-			    </div>
-			    <div class="collapse navbar-collapse" style="float: right;">
-			      <ul class="nav navbar-nav">
-			    	<% if user_signed_in? %>
-			    	    <li><a><span style="color: yellow;">Здравствуйте, <%= current_user.email %></span></a></li>
-			    	    <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
-			    	<% else %>
-			    	    <li><%= link_to 'Войти', new_user_session_path %></li><li><%= link_to 'Зарегистрироваться', new_user_registration_path %></li>
-			    	<% end %>
-			      </ul>
-			    </div><!--/.nav-collapse -->
-			</div>
-		</div>
-	</div>
-	<% if current_user and !current_user.current_project_id.nil? %>
-		<div class="current_project_panel">
-	      <p>
-	      	Ваш текущий проект: <%= Project.find(current_user.current_project_id).title %>
-	      </p>
-		</div>
-	<% end %>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-8">
-				<br><br>
-				<%= yield %>
-			</div>
-			<div class="col-md-2">
-				<!--<p class="notice"><%#= notice %></p>
-				<p class="alert"><%#= alert %></p>-->
-			</div>
-		</div>
-	</div><!-- /.container -->
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <%= link_to 'solvarium.ru', root_path, class: "navbar-brand" %>
+      </div>
+      <div> 
+          <div class="collapse navbar-collapse" style="float: left;">
+            <ul class="nav navbar-nav">
+              <% if user_signed_in? %>
+                <li><%= link_to 'Лента', articles_path %></li>
+                <li><%= link_to 'Проекты', projects_path %></li>
+                <li><%= link_to 'Теги', tags_path %></li>
+                <li><%= link_to 'Поиск', search_path %></li>
+              <% else %>
+                <li><%= link_to 'Лента', articles_path %></li>
+                <li><%= link_to 'Поиск', search_path %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="collapse navbar-collapse" style="float: right;">
+            <ul class="nav navbar-nav">
+            <% if user_signed_in? %>
+                <li><a><span style="color: yellow;">Владелец аккаунта: <%= current_user.name %></span></a></li>
+                <li><%= link_to 'Выйти', destroy_user_session_path, :method => :delete %></li>
+            <% else %>
+                <li><%= link_to 'Войти', new_user_session_path %></li><li><%= link_to 'Зарегистрироваться', new_user_registration_path %></li>
+            <% end %>
+            </ul>
+          </div><!--/.nav-collapse -->
+      </div>
+    </div>
+  </div>
+  <% if current_user and !current_user.current_project_id.nil? %>
+    <div class="current_project_panel">
+        <p>
+          Ваш текущий проект: <%= Project.find(current_user.current_project_id).title %>
+        </p>
+    </div>
+  <% else %>
+    <div class="current_project_panel"></div>
+  <% end %>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8">
+        <%= yield %>
+      </div>
+      <div class="col-md-2">
+        <!--<p class="notice"><%#= notice %></p>
+        <p class="alert"><%#= alert %></p>-->
+      </div>
+    </div>
+  </div><!-- /.container -->
 
-	<div class="footer">
-		<footer class="center">
-			<p>2016 <%= "\xC2\xA9" %> Igor Klekotnev</p>
-		</footer>
-	</div>
+  <div class="footer">
+    <footer class="center">
+      <p>2016 <%= "\xC2\xA9" %> Igor Klekotnev</p>
+    </footer>
+  </div>
 
-	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-	<!-- Include all compiled plugins (below), or include individual files as needed -->
-	
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  
 </body>
 </html>
