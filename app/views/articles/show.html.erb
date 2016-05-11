@@ -1,3 +1,4 @@
+<% article_comments = @comments.where(article_id: @article.id) %>
 <br>
 <div class="panel panel-warning">
   <div class="panel-heading">
@@ -10,17 +11,58 @@
   <div class="panel-body">
     <%= @article.content %>
   </div>
-  <% if user_signed_in? %>
-    <div class="panel-footer panel-warning" style="height: 45px; color: #8a6d3b; background-color: #fcf8e3;">
-      <div style="margin-top: -5px; margin-right: 0px; float: left;">
-        <%= link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить комменнтарий</span>'.html_safe, new_article_path, class: "btn btn-success" %>
+  <div id="comment" class="collapse" style="margin: 0px 10px 0px 10px;">
+    <% article_comments.each do |comment| %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div style="float: left;">
+            <p style="font-size: 10px; margin-top: -8px; margin-bottom: 0px;">Комментатор: <%= link_to User.find(comment.user_id).name, User.find(comment.user_id) %>;<span style="padding-left: 10px;"> Дата комментария: <%= comment.created_at.strftime("%d.%m.%Y %H:%M:%S") %></span></p>
+          </div>
+          <div style="float: right;">
+            <p style="font-size: 10px; margin-top: -8px; margin-bottom: 0px;">
+              <span class="glyphicon glyphicon-cog"  style="padding-left: 10px;"></span>
+              <span class="glyphicon glyphicon-trash"  style="padding-left: 10px;"></span>
+            </p>
+          </div>
+        </div>
+        <div class="panel-body">
+          <%= comment.content %>
+        </div>
       </div>
-      <div style="margin-top: -5px; margin-right: 0px; float: right;">
-        <%= link_to 'Редактировать', edit_article_path(@article.id), class: "btn btn-warning" %>
-        <%= link_to 'Удалить', article_path(@article.id), method: :delete, class: "btn btn-danger", data: { confirm: 'Вы уверены, что хотите удалить выбранную запись? Восстановить её будет невозможно. Удалить?' } %>
-      </div>
+    <% end %>
+  </div>
+  <div class="panel-footer panel-warning" style="height: 45px; color: #8a6d3b; background-color: #fcf8e3;">
+    <p style="margin: 0 0 0px;">
+      <b>Теги:</b>
+      <% tags = @tags.includes(:articles).where("articles.id" => @article.id) %>
+      <% comments_count = article_comments.size %>
+      <% tags.each do |tag| %>
+        <span class="label label-success"><%= tag.name %></span>
+      <% end %>
+    </p>
+    <div style="float: right;">
+      <p style="margin-top: -20px;">
+        <a href="#" data-toggle="collapse" data-target="#comment">
+          Комментарии 
+        </a>
+        <span class="badge"><%= comments_count %></span>
+      </p>
     </div>
-  <% end %>
+  </div>
 </div>
-
-<p style="text-align: center;"><%= link_to 'Вернуться к ленте', articles_path %></p>
+<% if user_signed_in? %>
+<div>
+  <div style="margin-top: -5px; margin-right: 0px; float: left;">
+    <%= link_to 'Редактировать', edit_article_path(@article.id), class: "btn btn-warning" %>
+    <%= link_to 'Удалить', article_path(@article.id), method: :delete, class: "btn btn-danger", data: { confirm: 'Вы уверены, что хотите удалить выбранную запись? Восстановить её будет невозможно. Удалить?' } %>
+  </div>
+  <div style="margin-top: -5px; margin-right: 0px; float: right;">
+    <%= link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить комменнтарий</span>'.html_safe, new_article_path, class: "btn btn-info" %>
+  </div>
+</div>
+<% end %>
+<div>
+  <p style="text-align: center;">
+    <%= link_to 'Вернуться к ленте', articles_path %>
+  </p>
+</div>

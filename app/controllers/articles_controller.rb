@@ -7,6 +7,8 @@ class ArticlesController < ApplicationController
     else
       @articles_common  = Article.common.all
     end
+    @tags = Tag.all
+    @comments = Comment.all
   end
 
   def show
@@ -15,6 +17,8 @@ class ArticlesController < ApplicationController
     else
       @article = Article.common.find params[:id]
     end
+    @tags = Tag.all
+    @comments = Comment.all
   end
 
   def new
@@ -25,7 +29,7 @@ class ArticlesController < ApplicationController
     @article.user_id = current_user.id
     if @article.save
       add_projects_to_article
-      add_tags_to_article params.require(:article).permit(:tags)["tags"]
+      add_tags_to_article params.require(:article).permit(:tags)["tags"], @article.id
       redirect_to articles_path
     else
       render 'new'
@@ -34,11 +38,18 @@ class ArticlesController < ApplicationController
   
   def edit
     @article = Article.find params[:id]
+    tags = Tag.includes(:articles).where("articles.id" => @article.id)
+    article_tags = []
+    tags.each do |tag|
+      article_tags.push(tag.name)
+    end
+    @tags_string = article_tags.join(", ")
   end
   
   def update
     @article = Article.find params[:id]
     if @article.update_attributes article_params
+      add_tags_to_article params.require(:article).permit(:tags)["tags"], @article.id
       redirect_to articles_path
     else
       render 'edit'
@@ -61,13 +72,15 @@ class ArticlesController < ApplicationController
     @article.projects << projects
   end
   
-  def add_tags_to_article params_tags
-    tags = []
+  def add_tags_to_article params_tags, article_id
+    article_tags = []
     params_tags.split(',').each do |tag|
-      t = Tag.new name: tag.strip, user_id: current_user.id
-      t.save
-      tags.push t
+      unless Tag.find_by(name: tag.strip)
+        t = Tag.new name: tag.strip, user_id: current_user.id
+        t.save
+        article_tags.push t
+      end
     end
-    @article.tags << tags
+    @article.tags << article_tags
   end
 end
