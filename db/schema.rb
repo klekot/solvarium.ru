@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160502204430) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean  "private"
+    t.boolean  "common"
   end
 
   add_index "articles", ["user_id"], name: "index_articles_on_user_id", using: :btree
