@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
     @article = Article.find params[:id]
     tags = Tag.includes(:articles).where("articles.id" => @article.id)
@@ -45,7 +45,7 @@ class ArticlesController < ApplicationController
     end
     @tags_string = article_tags.join(", ")
   end
-  
+
   def update
     @article = Article.find params[:id]
     if @article.update_attributes article_params
@@ -55,7 +55,7 @@ class ArticlesController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def destroy
     Article.destroy(params[:id])
     redirect_to articles_path
@@ -66,12 +66,12 @@ class ArticlesController < ApplicationController
   def article_params
     params.require(:article).permit :subject, :content, :common
   end
-  
+
   def add_projects_to_article
     projects = Project.find(current_user.current_project_id)
     @article.projects << projects
   end
-  
+
   def add_tags_to_article params_tags, article_id
     article_tags = []
     params_tags.split(',').each do |tag|

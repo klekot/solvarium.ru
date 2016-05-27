@@ -22,6 +22,6 @@
 <% else %>
   <h1><span class="glyphicon glyphicon-list-alt" /></span> Общие записи</h1>
   <div>
-    <%= render partial: 'shared/record', locals: {articles: @articles_common } %>
+    <%= render partial: 'shared/record', locals: {articles: @articles_common, tab_name: "common" } %>
   </div>
 <% end %>
