@@ -18,12 +18,7 @@
           <div style="float: left;">
             <p style="font-size: 10px; margin-top: -8px; margin-bottom: 0px;">Комментатор: <%= link_to User.find(comment.user_id).name, User.find(comment.user_id) %>;<span style="padding-left: 10px;"> Дата комментария: <%= comment.created_at.strftime("%d.%m.%Y %H:%M:%S") %></span></p>
           </div>
-          <div style="float: right;">
-            <p style="font-size: 10px; margin-top: -8px; margin-bottom: 0px;">
-              <span class="glyphicon glyphicon-cog"  style="padding-left: 10px;"></span>
-              <span class="glyphicon glyphicon-trash"  style="padding-left: 10px;"></span>
-            </p>
-          </div>
+          <%= render partial: 'shared/comment_options', locals: { comment: comment, article: @article  } %>
         </div>
         <div class="panel-body">
           <%= comment.content %>
@@ -31,7 +26,14 @@
       </div>
     <% end %>
   </div>
-  <div class="panel-footer panel-warning" style="height: 45px; color: #8a6d3b; background-color: #fcf8e3;">
+  <div class="panel-footer panel-warning" style="height: 60px; color: #8a6d3b; background-color: #fcf8e3;">
+    <p style="margin: 0 0 0px;">
+      <b>Проекты:</b>
+      <% projects = @projects.includes(:articles).where("articles.id" => @article.id) %>
+      <% projects.each do |project| %>
+        <span class="label label-warning"><%= project.title %></span>
+      <% end %>
+    </p>
     <p style="margin: 0 0 0px;">
       <b>Теги:</b>
       <% tags = @tags.includes(:articles).where("articles.id" => @article.id) %>
@@ -43,7 +45,7 @@
     <div style="float: right;">
       <p style="margin-top: -20px;">
         <a href="#" data-toggle="collapse" data-target="#comment">
-          Комментарии 
+          Комментарии
         </a>
         <span class="badge"><%= comments_count %></span>
       </p>
@@ -57,7 +59,7 @@
     <%= link_to 'Удалить', article_path(@article.id), method: :delete, class: "btn btn-danger", data: { confirm: 'Вы уверены, что хотите удалить выбранную запись? Восстановить её будет невозможно. Удалить?' } %>
   </div>
   <div style="margin-top: -5px; margin-right: 0px; float: right;">
-    <%= link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить комменнтарий</span>'.html_safe, new_article_path, class: "btn btn-info" %>
+    <%= link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить комменнтарий</span>'.html_safe, new_comment_path(article_id: @article.id), class: "btn btn-info" %>
   </div>
 </div>
 <% end %>

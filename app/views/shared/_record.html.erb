@@ -1,6 +1,8 @@
 <table class="table table-hover">
+  <% articles = articles.sort_by { |article| article.created_at }.reverse %>
   <% articles.each do |article| %>
     <% article_comments = @comments.where(article_id: article.id) %>
+    <% projects = @projects.includes(:articles).where("articles.id" => article.id) %>
     <% tags = @tags.includes(:articles).where("articles.id" => article.id) %>
     <% comments_count = @comments.where(article_id: article.id).size %>
     <tr>
@@ -21,19 +23,14 @@
           <% end %>
           </div>
           <br>
-          <div id="comment-<%= tab_name %>" class="collapse">
+          <div id="comment-<%= tab_name + "-" + comments_count.to_s %>" class="collapse">
             <% article_comments.each do |comment| %>
               <div class="panel panel-default">
                 <div class="panel-heading">
                   <div style="float: left;">
                     <p style="font-size: 10px; margin-top: -8px; margin-bottom: 0px;">Комментатор: <%= link_to User.find(comment.user_id).name, User.find(comment.user_id) %>;<span style="padding-left: 10px;"> Дата комментария: <%= comment.created_at.strftime("%d.%m.%Y %H:%M:%S") %></span></p>
                   </div>
-                  <div style="float: right;">
-                    <p style="font-size: 10px; margin-top: -8px; margin-bottom: 0px;">
-                      <span class="glyphicon glyphicon-cog"  style="padding-left: 10px;"></span>
-                      <span class="glyphicon glyphicon-trash"  style="padding-left: 10px;"></span>
-                    </p>
-                  </div>
+                  <%= render partial: 'shared/comment_options', locals: { comment: comment, article: article } if !comment.nil? %>
                 </div>
                 <div class="panel-body">
                   <%= comment.content %>
@@ -44,6 +41,12 @@
         </div>
         <div class="panel-footer">
           <p style="margin: 0 0 0px;">
+            <b>Проекты:</b>
+            <% projects.each do |project| %>
+              <span class="label label-warning"><%= project.title %></span>
+            <% end %>
+          </p>
+          <p style="margin: 0 0 0px;">
             <b>Теги:</b>
             <% tags.each do |tag| %>
               <span class="label label-success"><%= tag.name %></span>
@@ -51,8 +54,8 @@
           </p>
           <div style="float: right;">
             <p style="margin-top: -20px;">
-              <a href="#" data-toggle="collapse" data-target="#comment-<%= tab_name %>">
-                Комментарии 
+              <a href="#" data-toggle="collapse" data-target="#comment-<%= tab_name + "-" + comments_count.to_s %>">
+                Комментарии
               </a>
               <span class="badge"><%= comments_count %></span>
             </p>

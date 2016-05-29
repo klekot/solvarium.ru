@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
       @articles_common  = Article.common.all
     end
     @tags = Tag.all
+    @projects = Project.all
     @comments = Comment.all
   end
 
@@ -18,6 +19,7 @@ class ArticlesController < ApplicationController
       @article = Article.common.find params[:id]
     end
     @tags = Tag.all
+    @projects = Project.all
     @comments = Comment.all
   end
 

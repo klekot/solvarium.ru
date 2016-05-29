@@ -9,13 +9,13 @@
 
   <!-- Tab panes -->
   <div class="tab-content">
-    <div class="tab-pane fade in active" id="common">
+    <div class="tab-pane fade" id="common">
       <%= render partial: 'shared/record', locals: {articles: @articles_common, tab_name: "common" } %>
     </div>
     <div class="tab-pane fade" id="private">
       <%= render partial: 'shared/record', locals: {articles: @articles_my_own, tab_name: "private" } %>
     </div>
-    <div class="tab-pane fade" id="project">
+    <div class="tab-pane fade in active" id="project">
       <%= render partial: 'shared/record', locals: {articles: @articles_project, tab_name: "project" } %>
     </div>
   </div>
