@@ -9,8 +9,8 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'k1i.ru'
-set :deploy_to, '/home/solvarium/www/solvarium.ru'
+set :domain, '188.225.39.40'
+set :deploy_to, '/home/deploy/www/solvarium.ru'
 set :repository, 'https://github.com/klekot/solvarium.ru.git'
 set :branch, 'master'
 
@@ -22,8 +22,8 @@ set :branch, 'master'
 set :shared_paths, ['config/database.yml', 'config/secrets.yml', 'config/application.yml', 'log']
 
 # Optional settings:
-set :user, 'solvarium'    # Username in the server to SSH to.
-set :port, '65000'     # SSH port number.
+set :user, 'deploy'    # Username in the server to SSH to.
+set :port, '22'     # SSH port number.
 #   set :forward_agent, true     # SSH forward_agent.
 
 # This task is the environment that is loaded for most commands, such as
