@@ -17,9 +17,9 @@
         <div class="panel-body">
           <div>
           <% if article.content.size > 100 %>
-            <p><%= article.content[0, 300] + '...' %><i><%= link_to(' Читать полностью', article, { style: "font-size: 12px; color: blue;" }) %></i></p>
+            <p><%= simple_format article.content[0, 300] + '...' %><i><%= link_to(' Читать полностью', article, { style: "font-size: 12px; color: blue;" }) %></i></p>
           <% else %>
-            <p><%= article.content %></p>
+            <p><%= simple_format article.content  %></p>
           <% end %>
           </div>
           <br>
@@ -33,7 +33,7 @@
                   <%= render partial: 'shared/comment_options', locals: { comment: comment, article: article } if !comment.nil? %>
                 </div>
                 <div class="panel-body">
-                  <%= comment.content %>
+                  <%= simple_format comment.content %>
                 </div>
               </div>
             <% end %>

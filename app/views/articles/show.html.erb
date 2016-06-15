@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="panel-body">
-    <%= @article.content %>
+    <%= simple_format @article.content %>
   </div>
   <div id="comment" class="collapse" style="margin: 0px 10px 0px 10px;">
     <% article_comments.each do |comment| %>
@@ -21,7 +21,7 @@
           <%= render partial: 'shared/comment_options', locals: { comment: comment, article: @article  } %>
         </div>
         <div class="panel-body">
-          <%= comment.content %>
+          <%= simple_format comment.content %>
         </div>
       </div>
     <% end %>

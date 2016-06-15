@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502204430) do
+ActiveRecord::Schema.define(version: 20160604215443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,16 +38,33 @@ ActiveRecord::Schema.define(version: 20160502204430) do
     t.integer "project_id"
   end
 
-  add_index "articles_projects", ["article_id"], name: "index_articles_projects_on_article_id", using: :btree
-  add_index "articles_projects", ["project_id"], name: "index_articles_projects_on_project_id", using: :btree
+  add_index "articles_projects", ["article_id"], name: "index_articles_projects_on_articles_id", using: :btree
+  add_index "articles_projects", ["project_id"], name: "index_articles_projects_on_projects_id", using: :btree
 
   create_table "articles_tags", id: false, force: :cascade do |t|
     t.integer "article_id"
     t.integer "tag_id"
   end
 
-  add_index "articles_tags", ["article_id"], name: "index_articles_tags_on_article_id", using: :btree
-  add_index "articles_tags", ["tag_id"], name: "index_articles_tags_on_tag_id", using: :btree
+  add_index "articles_tags", ["article_id"], name: "index_articles_tags_on_articles_id", using: :btree
+  add_index "articles_tags", ["tag_id"], name: "index_articles_tags_on_tags_id", using: :btree
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",               null: false
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.string   "data_fingerprint"
+    t.integer  "assetable_id"
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"

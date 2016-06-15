@@ -17,12 +17,15 @@ gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'rails-i18n', '~> 4.0.0'
 gem 'devise-i18n'
+gem "paperclip", "~> 5.0.0.beta1"
+gem 'ckeditor', github: 'galetahub/ckeditor'
 
 group :development, :test do
   gem 'byebug'
 end
 
 group :development do
+  gem 'puma'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'mina'
