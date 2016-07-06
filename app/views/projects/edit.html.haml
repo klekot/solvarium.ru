@@ -1,0 +1,22 @@
+%h1 Редактировать проект
+= form_for(@project, :url => {:action => 'update', :id => @project.id}) do |f|
+  - if not @project.nil? and @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error")
+        prohibited
+        this project from being saved:
+      %ul
+        - @project.errors.full_messages.each do |msg|
+          %li= msg
+  %p
+    = f.label 'Название:'
+    %br/
+    = f.text_field :title, value: @project.title
+  %p
+    = f.label 'Описание:'
+    %br/
+    = f.text_area :description, value: @project.description
+  %p
+    = f.submit 'Сохранить'
+= link_to 'К списку проектов', projects_path

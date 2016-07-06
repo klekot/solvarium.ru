@@ -1,0 +1,51 @@
+- article_comments = @comments.where(article_id: @article.id)
+%br/
+.panel.panel-warning
+  .panel-heading
+    = @article.subject
+    %div{:style => "float: right;"}
+      %p{:style => "font-size: 10px; margin-top: -5px; margin-bottom: 0px;"}
+        Автор: #{link_to User.find(@article.user_id).name, User.find(@article.user_id)}
+      %p{:style => "font-size: 10px;"}
+        Дата создания: #{@article.created_at.strftime("%d.%m.%Y")}
+  .panel-body
+    = simple_format @article.content
+  #comment.collapse{:style => "margin: 0px 10px 0px 10px;"}
+    - article_comments.each do |comment|
+      .panel.panel-default
+        .panel-heading
+          %div{:style => "float: left;"}
+            %p{:style => "font-size: 10px; margin-top: -8px; margin-bottom: 0px;"}
+              Комментатор: #{link_to User.find(comment.user_id).name, User.find(comment.user_id)};
+              %span{:style => "padding-left: 10px;"}
+                Дата комментария: #{comment.created_at.strftime("%d.%m.%Y %H:%M:%S")}
+          = render partial: 'shared/comment_options', locals: { comment: comment, article: @article  }
+        .panel-body
+          = simple_format comment.content
+  .panel-footer.panel-warning{:style => "height: 60px; color: #8a6d3b; background-color: #fcf8e3;"}
+    %p{:style => "margin: 0 0 0px;"}
+      %b Проекты:
+      - projects = @projects.includes(:articles).where("articles.id" => @article.id)
+      - projects.each do |project|
+        %span.label.label-warning= project.title
+    %p{:style => "margin: 0 0 0px;"}
+      %b Теги:
+      - tags = @tags.includes(:articles).where("articles.id" => @article.id)
+      - comments_count = article_comments.size
+      - tags.each do |tag|
+        %span.label.label-success= tag.name
+    %div{:style => "float: right;"}
+      %p{:style => "margin-top: -20px;"}
+        %a{"data-target" => "#comment", "data-toggle" => "collapse", :href => "#"}
+          Комментарии
+        %span.badge= comments_count
+- if user_signed_in?
+  %div
+    %div{:style => "margin-top: -5px; margin-right: 0px; float: left;"}
+      = link_to 'Редактировать', edit_article_path(@article.id), class: "btn btn-warning"
+      = link_to 'Удалить', article_path(@article.id), method: :delete, class: "btn btn-danger", data: { confirm: 'Вы уверены, что хотите удалить выбранную запись? Восстановить её будет невозможно. Удалить?' }
+    %div{:style => "margin-top: -5px; margin-right: 0px; float: right;"}
+      = link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить комменнтарий</span>'.html_safe, new_comment_path(article_id: @article.id), class: "btn btn-info"
+%div
+  %p{:style => "text-align: center;"}
+    = link_to 'Вернуться к ленте', articles_path

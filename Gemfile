@@ -20,6 +20,8 @@ gem 'devise-i18n'
 gem "paperclip", "~> 5.0.0.beta1"
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "haml-rails", "~> 0.9"
+gem 'react-rails', github: 'reactjs/react-rails'
+gem 'sprockets-coffee-react'
 
 group :test do
   gem 'cucumber-rails', :require => false

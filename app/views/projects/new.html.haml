@@ -1,0 +1,25 @@
+%h1 Новый проект
+= form_for :project, url: projects_path do |f|
+  - if not @project.nil? and @project.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@project.errors.count, "error")
+        prohibited
+        this project from being saved:
+      %ul
+        - @project.errors.full_messages.each do |msg|
+          %li= msg
+  %p
+    = f.label 'Название:'
+    %br/
+    = f.text_field :title
+  %p
+    = f.label 'Описание:'
+    %br/
+    = f.text_area :description
+  %p
+    = f.label 'Сделать текущим:'
+    = f.check_box :current, value: 1
+  %p
+    = f.submit 'Сохранить'
+= link_to 'К списку проектов', projects_path

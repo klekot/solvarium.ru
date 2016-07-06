@@ -1,0 +1,51 @@
+%table.table.table-hover
+  - articles = articles.sort_by { |article| article.created_at }.reverse
+  - articles.each do |article|
+    - article_comments = @comments.where(article_id: article.id)
+    - projects = @projects.includes(:articles).where("articles.id" => article.id)
+    - tags = @tags.includes(:articles).where("articles.id" => article.id)
+    - comments_count = @comments.where(article_id: article.id).size
+    %tr
+      .panel.panel-default
+        .panel-heading
+          = link_to article.subject, article
+          %div{:style => "float: right;"}
+            %p{:style => "font-size: 10px; margin-top: -5px; margin-bottom: 0px;"}
+              Автор: #{link_to User.find(article.user_id).name, User.find(article.user_id)}
+            %p{:style => "font-size: 10px;"}
+              Дата создания: #{article.created_at.strftime("%d.%m.%Y %H:%M:%S")}
+        .panel-body
+          %div
+            - if article.content.size > 100
+              %p
+                = simple_format article.content[0, 300] + '...'
+                %i= link_to(' Читать полностью', article, { style: "font-size: 12px; color: blue;" })
+            - else
+              %p= simple_format article.content
+          %br/
+          .collapse{:id => "comment-#{tab_name + "-" + comments_count.to_s}"}
+            - article_comments.each do |comment|
+              .panel.panel-default
+                .panel-heading
+                  %div{:style => "float: left;"}
+                    %p{:style => "font-size: 10px; margin-top: -8px; margin-bottom: 0px;"}
+                      Комментатор: #{link_to User.find(comment.user_id).name, User.find(comment.user_id)};
+                      %span{:style => "padding-left: 10px;"}
+                        Дата комментария: #{comment.created_at.strftime("%d.%m.%Y %H:%M:%S")}
+                  = render partial: 'shared/comment_options', locals: { comment: comment, article: article } if !comment.nil?
+                .panel-body
+                  = simple_format comment.content
+        .panel-footer
+          %p{:style => "margin: 0 0 0px;"}
+            %b Проекты:
+            - projects.each do |project|
+              %span.label.label-warning= project.title
+          %p{:style => "margin: 0 0 0px;"}
+            %b Теги:
+            - tags.each do |tag|
+              %span.label.label-success= tag.name
+          %div{:style => "float: right;"}
+            %p{:style => "margin-top: -20px;"}
+              %a{"data-target" => "#comment-#{tab_name + "-" + comments_count.to_s}", "data-toggle" => "collapse", :href => "#"}
+                Комментарии
+              %span.badge= comments_count

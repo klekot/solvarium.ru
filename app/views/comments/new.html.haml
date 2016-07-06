@@ -1,0 +1,9 @@
+%h1 Новый комментарий
+= form_for :comment, url: comments_path do |f|
+  %p
+    = f.label 'Содержание:'
+    %br/
+    = f.text_area :content
+    = f.hidden_field :article_id, value: params[:article_id]
+  %p
+    = f.submit 'Сохранить'

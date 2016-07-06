@@ -1,0 +1,7 @@
+- if user_signed_in? and current_user.id == comment.user_id
+  %div{:style => "float: right;"}
+    %p{:style => "font-size: 10px; margin-top: -8px; margin-bottom: 0px;"}
+      - edit_glyphicon  = "<span class=\"glyphicon glyphicon-cog\" style=\"padding-left: 10px;\"></span>"
+      - trash_glyphicon = "<span class=\"glyphicon glyphicon-trash\" style=\"padding-left: 10px;\"></span>"
+      = link_to edit_glyphicon.html_safe, edit_comment_path(comment.id, article_id: article.id)
+      = link_to trash_glyphicon.html_safe, comment_path(comment.id), method: :delete, data: { confirm: 'Вы уверены, что хотите удалить выбранный комментарий? Восстановить его будет невозможно. Удалить?' }

@@ -1,0 +1,23 @@
+%h1 Новая запись
+= form_for :article, url: articles_path do |f|
+  %p
+    = f.label 'Название:'
+    %br/
+    = f.text_field :subject
+  %p
+    = f.label 'Содержание:'
+    %br/
+    = f.cktext_area :content,                                         |
+      cols: 40,                                                       |
+      ckeditor: {language: 'ru', uiColor: '#30CBFF', toolbar: 'mini'} |
+  %p
+    = f.label 'Теги (через запятую):'
+    %br/
+    = f.text_area :tags
+  %p
+    = f.label 'Транслировать в общую ленту?'
+    %br/
+    = f.check_box :common
+  %p
+    = f.submit 'Сохранить'
+= link_to 'К ленте', articles_path

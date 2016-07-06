@@ -1,0 +1,27 @@
+- if user_signed_in?
+  %h1
+    %span.glyphicon.glyphicon-list-alt
+    Все записи
+  / Nav tabs
+  %ul.nav.nav-tabs
+    %li
+      %a{"data-toggle" => "tab", :href => "#common"} Общая лента
+    %li
+      %a{"data-toggle" => "tab", :href => "#private"} Личная лента
+    %li.active
+      %a{"data-toggle" => "tab", :href => "#project"}
+        Лента проекта "#{Project.find(current_user.current_project_id).title}"
+  / Tab panes
+  .tab-content
+    #common.tab-pane.fade
+      = render partial: 'shared/record', locals: {articles: @articles_common, tab_name: "common" }
+    #private.tab-pane.fade
+      = render partial: 'shared/record', locals: {articles: @articles_my_own, tab_name: "private" }
+    #project.tab-pane.fade.in.active
+      = render partial: 'shared/record', locals: {articles: @articles_project, tab_name: "project" }
+- else
+  %h1
+    %span.glyphicon.glyphicon-list-alt
+    Общие записи
+  %div
+    = render partial: 'shared/record', locals: {articles: @articles_common, tab_name: "common" }

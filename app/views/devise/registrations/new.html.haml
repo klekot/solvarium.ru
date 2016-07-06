@@ -1,0 +1,34 @@
+%h2{:style => "text-align: center;"} Наберитесь терпения, друзья!
+%p Пока сайт находится на стадии разработки регистрация новых пользователей недоступна."Камин сунь", как великобритают англичанцы.
+/
+  <haml_loud> form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| </haml_loud><haml_block>
+  <haml_loud> devise_error_messages! </haml_loud>
+  
+  <div class="field">
+  <haml_loud> f.label :name </haml_loud><br />
+  <haml_loud> f.text_field :name, autofocus: true </haml_loud>
+  </div>
+  
+  <div class="field">
+  <haml_loud> f.label :email </haml_loud><br />
+  <haml_loud> f.email_field :email, autofocus: false </haml_loud>
+  </div>
+  
+  <div class="field">
+  <haml_loud> f.label :password </haml_loud>
+  <haml_silent>     if @validatable
+  </haml_silent><haml_block>    <em>(<haml_loud> @minimum_password_length </haml_loud> characters minimum)</em>
+  </haml_block><br />
+  <haml_loud> f.password_field :password, autocomplete: &quot;off&quot; </haml_loud>
+  </div>
+  
+  <div class="field">
+  <haml_loud> f.label :password_confirmation </haml_loud><br />
+  <haml_loud> f.password_field :password_confirmation, autocomplete: &quot;off&quot; </haml_loud>
+  </div>
+  
+  <div class="actions">
+  <haml_loud> f.submit &quot;Sign up&quot; </haml_loud>
+  </div>
+  </haml_block>
+  <haml_loud> render &quot;devise/shared/links&quot; </haml_loud>
