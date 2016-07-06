@@ -19,15 +19,33 @@ gem 'rails-i18n', '~> 4.0.0'
 gem 'devise-i18n'
 gem "paperclip", "~> 5.0.0.beta1"
 gem 'ckeditor', github: 'galetahub/ckeditor'
+gem "haml-rails", "~> 0.9"
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'email_spec'
+  gem 'launchy'
+end
 
 group :development, :test do
-  gem 'byebug'
+  gem 'rspec-rails', '~> 3.4'
+  gem 'shoulda-matchers'
+  gem 'faker', github: 'stympy/faker'
+  gem 'factory_girl_rails'
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem "spring-commands-cucumber"
+  gem 'guard'
+  gem 'guard-spring'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
 end
 
 group :development do
   gem 'puma'
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
   gem 'mina'
 end
 
