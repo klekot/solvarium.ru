@@ -1,3 +1,4 @@
-%h1
-  = "Статьи с тегом \"" + @tag.name + "\""
-  %h1
+%h1= "Статьи с тегом \"" + @tag.name + "\""
+%ul
+  - @articles.each do |article|
+    %li= link_to article.subject, article_path(article.id)

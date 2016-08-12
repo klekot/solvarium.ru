@@ -77,7 +77,11 @@ class ArticlesController < ApplicationController
   def add_tags_to_article params_tags, article_id
     article_tags = []
     params_tags.split(',').each do |tag|
-      t = Tag.new name: tag.strip, user_id: current_user.id
+      if Tag.find_by(name: tag.strip)
+        t = Tag.find_by(name: tag.strip)
+      else
+        t = Tag.new name: tag.strip, user_id: current_user.id
+      end
       t.save
       article_tags.push t
       @article.tags.clear
