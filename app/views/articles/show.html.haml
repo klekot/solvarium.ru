@@ -9,7 +9,7 @@
       %p{:style => "font-size: 10px;"}
         Дата создания: #{@article.created_at.strftime("%d.%m.%Y")}
   .panel-body
-    = simple_format @article.content
+    = @article.content.html_safe
   #comment.collapse{:style => "margin: 0px 10px 0px 10px;"}
     - article_comments.each do |comment|
       .panel.panel-default

@@ -18,10 +18,12 @@
           %div
             - if article.content.size > 100
               %p
-                = simple_format article.content[0, 300] + '...'
+                = article.content.html_safe[0, 300]
+              %p
+                = '...'
                 %i= link_to(' Читать полностью', article, { style: "font-size: 12px; color: blue;" })
             - else
-              %p= simple_format article.content
+              %p= article.content.html_safe
           %br/
           .collapse{:id => "comment-#{tab_name + "-" + comments_count.to_s}"}
             - article_comments.each do |comment|
