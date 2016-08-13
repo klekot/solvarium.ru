@@ -6,9 +6,9 @@
       .search-form
         = form_for search_path, method: :get do |f|
           %p
-            = f.label "Искать текст:"
-            = text_field_tag :q, params[:q]
-            = submit_tag "Найти", name: nil
+            = text_field_tag :q, params[:q], class: "form-control", placeholder: "Введите поисковый запрос"
+            %br
+            = submit_tag "Найти", name: nil, class: "btn btn-lg btn-primary btn-block"
     .col-md-2
 .search-results
   %ul

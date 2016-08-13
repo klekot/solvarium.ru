@@ -42,17 +42,23 @@
                 %li
                   %a
                     %span{:style => "color: yellow;"}
-                      Владелец аккаунта: #{current_user.name}
+                      Здравствуйте, #{current_user.name}!
                 %li= link_to 'Выйти', destroy_user_session_path, :method => :delete
               - else
                 %li= link_to 'Войти', new_user_session_path
                 %li= link_to 'Зарегистрироваться', new_user_registration_path
           / /.nav-collapse
-    - if current_user and !current_user.current_project_id.nil?
-      .current_project_panel
-        %div
-          %p.project-link
-            Ваш текущий проект: #{link_to Project.find(current_user.current_project_id).title, project_path(Project.find(current_user.current_project_id).id)}  #{link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить запись</span>'.html_safe, new_article_path, class: "btn btn-info"}
+    - if current_user
+      - if !current_user.current_project_id.nil?
+        .current_project_panel
+          %div
+            %p.project-link
+              Ваш текущий проект: #{link_to Project.find(current_user.current_project_id).title, project_path(Project.find(current_user.current_project_id).id)}  #{link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить запись</span>'.html_safe, new_article_path, class: "btn btn-info"}
+      - elsif current_user.current_project_id.nil?
+        .current_project_panel
+          %div
+            %p.project-link
+              У Вас пока нет ни одного проекта. Создайте его, нажав на эту кнопку: #{link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить проект</span>'.html_safe, new_project_path, class: "btn btn-success"}
     - else
       .current_project_panel
     .container

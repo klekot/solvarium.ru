@@ -17,10 +17,10 @@
   %p
     = f.label 'Содержание:'
     %br/
-    = f.cktext_area :content,                                         |
-      value: @article.content,                                        |
-      cols: 40,                                                       |
-      ckeditor: {language: 'ru', uiColor: '#30CBFF', toolbar: 'mini'} |
+    = f.cktext_area :content,
+      value: @article.content,
+      cols: 40,
+      ckeditor: {language: 'ru', uiColor: '#30CBFF', toolbar: 'mini'}
   %p
     = f.label 'Теги (через запятую):'
     %br/
