@@ -11,6 +11,6 @@ Rails.application.routes.draw do
   resources :users
   resources :articles
   resources :projects
-  resources :tags, except: :new
+  resources :tags, only: [:index, :show]
   resources :comments
 end

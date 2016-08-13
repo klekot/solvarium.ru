@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   def index
-    @tags = Tag.all
-    @tags = @tags.sort_by &:name
+    @tags = Tag.all.to_a
+    @tags.sort! { |a,b| a.name.downcase <=> b.name.downcase }
   end
 
   def show
