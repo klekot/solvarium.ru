@@ -49,3 +49,5 @@
               %a{"data-target" => "#comment-#{tab_name + "-" + comments_count.to_s}", "data-toggle" => "collapse", :href => "#"}
                 Комментарии
               %span.badge= comments_count
+              %span{:style => "font-size: 19px; margin-top: 0px; margin-right: 0px; float: right;"}
+                = link_to '&nbsp<span class="glyphicon glyphicon-plus-sign"></span>'.html_safe, new_comment_path(article_id: article.id)

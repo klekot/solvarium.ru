@@ -12,11 +12,14 @@
   %p
     = f.label 'Название:'
     %br/
-    = f.text_field :title, value: @project.title
+    = f.text_field :title, value: @project.title, class: "form-control"
   %p
     = f.label 'Описание:'
     %br/
-    = f.text_area :description, value: @project.description
+    = f.text_area :description, value: @project.description, class: "form-control"
   %p
-    = f.submit 'Сохранить'
-= link_to 'К списку проектов', projects_path
+    = f.submit 'Сохранить', class: "btn btn-lg btn-primary btn-block"
+%br
+%br
+%p{:style => "text-align: center;"}
+  = link_to 'К списку проектов', projects_path
