@@ -1,4 +1,3 @@
-%h1 Список тегов
-%ul
-  - @tags.each do |tag|
-    %li= link_to tag.name, tag_path(tag.id)
+%h1 Все теги
+- @tags.each do |tag|
+  %span.badge.tag-index= link_to tag.name, tag_path(tag.id)
