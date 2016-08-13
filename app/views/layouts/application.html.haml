@@ -51,8 +51,8 @@
     - if current_user and !current_user.current_project_id.nil?
       .current_project_panel
         %div
-          %p
-            Ваш текущий проект: #{Project.find(current_user.current_project_id).title}  #{link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить запись</span>'.html_safe, new_article_path, class: "btn btn-info"}
+          %p.project-link
+            Ваш текущий проект: #{link_to Project.find(current_user.current_project_id).title, project_path(Project.find(current_user.current_project_id).id)}  #{link_to '<span class="glyphicon glyphicon-plus-sign"></span><span style="font-family: Arial;"> Добавить запись</span>'.html_safe, new_article_path, class: "btn btn-info"}
     - else
       .current_project_panel
     .container

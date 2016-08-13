@@ -17,7 +17,12 @@
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Bad+Script&subset=latin,cyrillic);
 @import "tags";
+@import "search";
 
+h1 {
+  text-align: center;
+  padding-bottom: 20px;
+}
 
 .current_project_panel {
   font-family: 'Bad Script', cursive;
@@ -31,6 +36,13 @@
     text-align: center;
     margin-top: 5px;
     padding-bottom: 5px;
+  }
+}
+
+.project-link {
+  a { 
+    color: white;
+    font-weight: bolder;
   }
 }
 

@@ -1,3 +1,4 @@
 %h1 Все теги
 - @tags.each do |tag|
-  %span.badge.tag-index= link_to tag.name, tag_path(tag.id)
+  - articles_number = Article.includes(:tags).where('tags.id' => tag.id).to_a.size.to_s
+  %span.badge.tag-index= link_to (tag.name + ' ' + '<span class= "badge articles-number">' + articles_number + '</span>').html_safe, tag_path(tag.id)
