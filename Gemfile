@@ -17,9 +17,9 @@ gem 'figaro'
 gem 'bootstrap-sass'
 gem 'sass-rails'
 gem 'rails-i18n', '~> 4.0.0'
-gem "paperclip", "~> 5.0.0.beta1"
+gem 'paperclip', '~> 5.0.0.beta1'
 gem 'ckeditor', github: 'galetahub/ckeditor'
-gem "haml-rails", "~> 0.9"
+gem 'haml-rails', '~> 0.9'
 gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
 
