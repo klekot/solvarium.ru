@@ -1,5 +1,12 @@
-%p
+%h1
   %strong= @project.title
-%p
+%p{:style => "text-align: center;"}
   = @project.description
-= link_to 'К списку проектов', projects_path
+%p
+  = react_component('TodoIndex', render(template: 'projects/show.json.jbuilder'))
+%br
+%br
+%br
+%div
+  %p{:style => "text-align: center;"}
+    = link_to 'К списку проектов', projects_path

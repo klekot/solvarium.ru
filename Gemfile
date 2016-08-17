@@ -22,6 +22,11 @@ gem 'ckeditor', github: 'galetahub/ckeditor'
 gem 'haml-rails', '~> 0.9'
 gem 'react-rails', github: 'reactjs/react-rails'
 gem 'sprockets-coffee-react'
+gem 'lodash-rails'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-alt'
+end
+gem 'gon'
 
 group :test do
   gem 'cucumber-rails', :require => false

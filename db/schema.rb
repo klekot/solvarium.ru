@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160604215443) do
+ActiveRecord::Schema.define(version: 20160814020209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,20 @@ ActiveRecord::Schema.define(version: 20160604215443) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "tags", ["name"], name: "unique_tags_names", unique: true, using: :btree
   add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
+
+  create_table "todos", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "checked"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "todos", ["project_id"], name: "index_todos_on_project_id", using: :btree
+  add_index "todos", ["user_id"], name: "index_todos_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",                          null: false
@@ -123,5 +136,7 @@ ActiveRecord::Schema.define(version: 20160604215443) do
   add_foreign_key "comments", "users"
   add_foreign_key "projects", "users"
   add_foreign_key "tags", "users"
+  add_foreign_key "todos", "projects"
+  add_foreign_key "todos", "users"
   add_foreign_key "users", "accounts"
 end

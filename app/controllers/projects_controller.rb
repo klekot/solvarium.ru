@@ -7,6 +7,9 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find params[:id]
+    @todos = Todo.where(user_id: current_user.id, project_id: params[:id])
+    gon.project_id = params[:id]
+    gon.user_id = current_user.id
   end
 
   def new

@@ -17,5 +17,7 @@
 #= require ckeditor/init
 #= require react
 #= require react_ujs
+#= require lodash
+#= require alt
 #= require components
 #= require_tree .
