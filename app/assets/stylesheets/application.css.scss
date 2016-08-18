@@ -16,6 +16,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Bad+Script&subset=latin,cyrillic);
+@import url(https://fonts.googleapis.com/css?family=Rubik);
 @import "tags";
 @import "search";
 @import "todos";
@@ -50,36 +51,6 @@ h1 {
     color: white;
     font-weight: bolder;
   }
-}
-
-.welcome_div {
-  h1 {
-    font-family: 'Bad Script', cursive;
-    font-weight: bold;
-    font-size: 90px;
-    text-align: center;
-    padding-bottom: 50px;
-  }
-  table {
-        margin: auto;
-  }
-  padding-top: 60px;
-}
-
-.slogan {
-  margin-left: 100px;
-  font-family: 'Bad Script', cursive;
-  font-size: 40px;
-  float: right;
-}
-
-.image-p {
-  padding-left: 30px;
-}
-
-.books_image {
-  width: 330px;
-  float: right;
 }
 
 .center {

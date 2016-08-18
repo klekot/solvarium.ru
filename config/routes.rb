@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
-  get 'temp', to: 'home#temp'
+  get 'about', to: 'home#about'
   get 'search', to: 'search#search'
   post 'projects/change_current_project', to: 'projects#change_current_project'
 

@@ -2,9 +2,54 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.welcome-section {
+  h1 {
+    font-family: 'Bad Script', cursive;
+    font-weight: bold;
+    font-size: 90px;
+    text-align: center;
+    padding-bottom: 50px;
+  }
+  table {
+        margin: auto;
+  }
+  padding-top: 20px;
+}
+
+.slogan {
+  margin-left: 100px;
+  font-family: 'Bad Script', cursive;
+  font-size: 40px;
+  float: right;
+}
+
+.books-image {
+  width: 330px;
+  float: right;
+}
+
+.image-p {
+  padding-left: 30px;
+}
+
 .vocabulary-quote {
   color: orange;
   font-weight: bold;
   text-align: center;
   margin-top: 50px;
+}
+
+.about-section {
+  padding-top: 30px;
+  h2 {
+    font-family: 'Bad Script', cursive;
+    font-weight: normal;
+    font-size: 26px;
+  }
+  p {
+    font-family: 'Rubik', sans-serif;
+    color: gray;
+    font-weight: normal;
+    font-size: 13px;
+  }
 }
