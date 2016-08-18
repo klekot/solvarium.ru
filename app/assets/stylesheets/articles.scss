@@ -1,3 +1,12 @@
 // Place all the styles related to the Articles controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.article-edit-projects-tags {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+select {
+  width: 98%;
+}

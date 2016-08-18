@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
     @article = Article.new article_params
     @article.user_id = current_user.id
     if @article.save
-      add_projects_to_article
+      add_current_project_to_article
       add_tags_to_article params.require(:article).permit(:tags)["tags"], @article.id
       redirect_to articles_path
     else
@@ -46,11 +46,13 @@ class ArticlesController < ApplicationController
       article_tags.push(tag.name)
     end
     @tags_string = article_tags.join(", ")
+    @my_projects = Project.where(user_id: current_user.id)
   end
 
   def update
     @article = Article.find params[:id]
     if @article.update_attributes article_params
+      add_projects_to_article params.require(:article).permit(:projects => []), @article.id
       add_tags_to_article params.require(:article).permit(:tags)["tags"], @article.id
       redirect_to articles_path
     else
@@ -69,9 +71,22 @@ class ArticlesController < ApplicationController
     params.require(:article).permit :subject, :content, :common
   end
 
-  def add_projects_to_article
-    projects = Project.find(current_user.current_project_id)
-    @article.projects << projects
+  def add_current_project_to_article
+    current_project = Project.find(current_user.current_project_id)
+    @article.projects << current_project
+  end
+  
+  def add_projects_to_article params_projects, article_id
+    article_projects = []
+    params_projects.flatten.join(',').split(',').each do |project|
+      if Project.find_by(title: project.strip)
+        p = Project.find_by(title: project.strip)
+        p.save
+        article_projects.push p
+      end
+      @article.projects.clear
+    end
+    @article.projects << article_projects
   end
 
   def add_tags_to_article params_tags, article_id

@@ -1,15 +1,16 @@
+- projects = Project.all.includes(:articles).where("articles.id" => @article.id)
 = javascript_include_tag Ckeditor.cdn_url
 %h1 Редактировать запись
 = form_for(@article , :url => {:action => 'update', :id => @article.id}) do |f|
   - if not @article.nil? and @article.errors.any?
     #error_explanation
-      %h2
-        = pluralize(@article.errors.count, "error")
-        prohibited
-        this article from being saved:
-      %ul
-        - @article.errors.full_messages.each do |msg|
-          %li= msg
+    %h2
+      = pluralize(@article.errors.count, "error")
+      prohibited
+      this article from being saved:
+    %ul
+      - @article.errors.full_messages.each do |msg|
+        %li= msg
   %p
     = f.label 'Название:'
     %br/
@@ -20,11 +21,21 @@
     = f.cktext_area :content,
       value: @article.content,
       cols: 40,
-      ckeditor: {language: 'ru', uiColor: '#30CBFF', toolbar: 'mini'}
-  %p
-    = f.label 'Теги (через запятую):'
-    %br/
-    = f.text_area :tags, value: @tags_string, class: "form-control"
+      ckeditor: {language: 'ru', uiColor: '#30CBFF', toolbar: 'full'}
+  .container-fluid
+    .row
+      .col-md-6.article-edit-projects-tags
+        = f.label 'Принадлежит проектам: '
+        %br/
+        = f.select :projects, options_for_select(@my_projects.map{ |p| p.id; p.title }, selected: projects.map{ |j| j.title }), {}, { multiple: true, size: 5 }
+        %br
+        %em{ style: "font-size: 10px;" }
+          = "для множественого выбора проектов удерживайте 'cmd' (для windows: 'ctrl')"
+      .col-md-6.article-edit-projects-tags
+        = f.label 'Теги (через запятую):'
+        %br/
+        = f.text_area :tags, value: @tags_string, class: "form-control", style: "height: 87px;"
+  %br
   %p
     = f.label 'Транслировать в общую ленту?'
     = f.check_box :common, value: @article.common
@@ -32,5 +43,5 @@
     = f.submit 'Сохранить', class: "btn btn-lg btn-primary btn-block"
 %br
 %br
-%p{:style => "text-align: center;"}
+%p{style: "text-align: center;"}
   = link_to 'Вернуться к ленте', articles_path
