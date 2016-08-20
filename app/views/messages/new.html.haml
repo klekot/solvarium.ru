@@ -1,0 +1,11 @@
+%h1
+  Новое сообщение
+
+%hr
+
+= form_for @new_message, remote: true do |f|
+  = f.text_field   :body
+  = f.hidden_field :sender  , value: current_user.id
+  = f.hidden_field :receiver, value: @receiver_id
+  
+= sync_new partial: 'message_row', resource: Message.new

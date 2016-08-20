@@ -20,4 +20,5 @@
 #= require lodash
 #= require alt
 #= require components
+#= require sync 
 #= require_tree .

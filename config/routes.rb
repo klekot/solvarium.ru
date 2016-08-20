@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :messages
   mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
   get 'about', to: 'home#about'

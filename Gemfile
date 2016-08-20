@@ -27,6 +27,9 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-alt'
 end
 gem 'gon'
+gem 'faye'
+gem 'thin', require: false
+gem 'render_sync'
 
 group :test do
   gem 'cucumber-rails', :require => false
