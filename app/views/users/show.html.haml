@@ -1,6 +1,14 @@
 %h1
-  = current_user.name
+  = @user.name
 %p
-  =current_user.email
+  = @user.email
 %hr
-=link_to "Написать сообщение", new_message_path, class: "btn btn-success"
+
+- unless current_user.id == @user.id
+  = form_for @new_message, url: {controller: "messages", action: "create"}, remote: true do |f|
+    = f.label "Написать собщение:"
+    = f.text_area    :body, class: "form-control", rows: "5"
+    = f.hidden_field :sender  , value: current_user.id
+    = f.hidden_field :receiver, value: @user.id
+    %br
+    = f.submit "Отправить", class: "btn btn-success"

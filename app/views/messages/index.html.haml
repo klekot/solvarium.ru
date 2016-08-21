@@ -1,4 +1,5 @@
-%h3
+%h1
   Сообщения
-
-= sync partial: 'message_row', collection: @messages_in
+%table.table.table-striped
+  = sync partial: 'message_row', collection: @messages_in
+  = sync_new partial: 'message_row', resource: Message.new

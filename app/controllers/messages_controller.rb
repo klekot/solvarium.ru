@@ -10,11 +10,11 @@ class MessagesController < ApplicationController
   
   def new
     @new_message  = current_user.messages.build
-    @receiver_id = 1
+    @receiver_id  = params[:receiver]
   end
 
   def create
-    @message = current_user.messages.build(message_params)
+    @message  = current_user.messages.build(message_params)
 
     if @message.save
       sync_new @message
@@ -26,6 +26,6 @@ class MessagesController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:body)
+    params.require(:message).permit(:body, :sender, :receiver)
   end
 end

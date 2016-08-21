@@ -1,1 +1,15 @@
-= link_to message.body, message
+- sender = User.find(message.sender)
+%tr
+  %td{ width: "30%" }
+    %table
+      %tr
+        %td
+          = "Сообщение от"
+          = (link_to sender.name, user_path(sender.id))
+      %tr
+        %td
+          = "Получено "
+          = message.created_at.strftime("%d.%m.%Y в %I:%M%p")
+  %td{ width: "70%" }
+    = message.body
+    

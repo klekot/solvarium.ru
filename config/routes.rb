@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :messages
   mount Ckeditor::Engine => '/ckeditor'
   root 'home#index'
   get 'about', to: 'home#about'
@@ -15,4 +14,5 @@ Rails.application.routes.draw do
   resources :tags, only: [:index, :show]
   resources :comments
   resources :todos
+  resources :messages
 end
