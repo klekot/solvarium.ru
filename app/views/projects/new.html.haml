@@ -18,6 +18,9 @@
     %br/
     = f.text_area :description, class: "form-control"
   %p
+    = f.label 'Сделать общим:'
+    = f.check_box :common, value: 1
+  %p
     = f.label 'Сделать текущим:'
     = f.check_box :current, value: 1
   %p

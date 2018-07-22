@@ -18,6 +18,9 @@
     %br/
     = f.text_area :description, value: @project.description, class: "form-control"
   %p
+    = f.label 'Сделать общим:'
+    = f.check_box :common, value: 1
+  %p
     = f.submit 'Сохранить', class: "btn btn-lg btn-primary btn-block"
 %br
 %br

@@ -30,6 +30,7 @@ gem 'gon'
 gem 'faye'
 gem 'thin', require: false
 gem 'render_sync'
+gem 'responders', '~> 2.0'
 
 group :test do
   gem 'cucumber-rails', :require => false
@@ -55,7 +56,7 @@ group :development, :test do
 end
 
 group :development do
-  gem 'puma'
+  gem 'puma', '= 3.11.2'
   gem 'mina'
 end
 

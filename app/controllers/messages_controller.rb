@@ -14,13 +14,18 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message  = current_user.messages.build(message_params)
+    @message = current_user.messages.build(message_params)
 
     if @message.save
       sync_new @message
     end
 
-    respond_with { @message }
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Ваше сообщение отправлено.' }
+      format.json { render json: @message }
+    end
+
+    # respond_with { @message }
   end
 
   private

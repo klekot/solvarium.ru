@@ -1,41 +1,13 @@
 %h1 Все проекты
-- unless current_user.current_project_id.nil?
-  %table.table.table-striped{:width => "100%"}
-    %tbody
-      %tr
-        %td
-          = link_to '<span class="glyphicon glyphicon-plus-sign"> Добавить</span>'.html_safe, new_project_path, class: "btn btn-success"
-        %td
-        %td
-        %td
-        %td
-      - @projects.each do |project|
-        - @@project_id = project.id
-        %tr
-          %td
-            - if current_user.current_project_id == project.id
-              %p
-                %span.glyphicon.glyphicon-arrow-right
-                %b Текущий проект
-            - else
-              = form_tag("projects/change_current_project", method: "post") do
-                = hidden_field_tag(:new_current_id, project.id)
-                = submit_tag("Перейти к проекту", class: "btn btn-default")
-          %td
-            %p
-              = link_to project.title, project
-          %td
-            %p
-              = project.description
-          %td
-            %p
-              = link_to 'Редактировать', edit_project_path(project.id), class: "btn btn-warning"
-          %td
-            %p
-              - unless current_user.current_project_id == project.id
-                - confirm_text = 'Вы уверены, что хотите удалить выбранный проект? Восстановить его будет невозможно, отбор записей по этому проекту также станет недоступен. Удалить?'
-              - else
-                - confirm_text = 'Вы собираетесь удалить текущий проект? Восстановить его будет невозможно, отбор записей по этому проекту также станет недоступен. Текущим проектом по умолчанию будет установлен первый из списка ваших проектов. После этого вы сможете выбрать другой проект в качестве текущего. Удалить?'
-              = link_to 'Удалить', project_path(project.id), method: :delete, class: "btn btn-danger", data: { confirm: confirm_text }
-- else
-  %p Создайте Ваш первый проект, и Вы получите возможность фиксировать в нём Ваши решения.
+/ Nav tabs
+%ul.nav.nav-tabs
+  %li
+    %a{"data-toggle" => "tab", :href => "#common"} Доступные проекты
+  %li.active
+    %a{"data-toggle" => "tab", :href => "#private"} Мои проекты
+/ Tab panes
+.tab-content
+  #common.tab-pane.fade
+    = render partial: 'shared/project', locals: {projects: @projects_common, tab_name: "common" }
+  #private.tab-pane.fade.in.active
+    = render partial: 'shared/project', locals: {projects: @projects_my_own, tab_name: "private" }

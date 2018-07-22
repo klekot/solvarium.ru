@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160820183041) do
+ActiveRecord::Schema.define(version: 20180721133551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,16 +38,16 @@ ActiveRecord::Schema.define(version: 20160820183041) do
     t.integer "project_id"
   end
 
-  add_index "articles_projects", ["article_id"], name: "index_articles_projects_on_article_id", using: :btree
-  add_index "articles_projects", ["project_id"], name: "index_articles_projects_on_project_id", using: :btree
+  add_index "articles_projects", ["article_id"], name: "index_articles_projects_on_articles_id", using: :btree
+  add_index "articles_projects", ["project_id"], name: "index_articles_projects_on_projects_id", using: :btree
 
   create_table "articles_tags", id: false, force: :cascade do |t|
     t.integer "article_id"
     t.integer "tag_id"
   end
 
-  add_index "articles_tags", ["article_id"], name: "index_articles_tags_on_article_id", using: :btree
-  add_index "articles_tags", ["tag_id"], name: "index_articles_tags_on_tag_id", using: :btree
+  add_index "articles_tags", ["article_id"], name: "index_articles_tags_on_articles_id", using: :btree
+  add_index "articles_tags", ["tag_id"], name: "index_articles_tags_on_tags_id", using: :btree
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",               null: false
@@ -91,12 +91,18 @@ ActiveRecord::Schema.define(version: 20160820183041) do
   create_table "projects", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
-    t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "creator_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "common",      default: 0, null: false
   end
 
-  add_index "projects", ["user_id"], name: "index_projects_on_user_id", using: :btree
+  add_index "projects", ["creator_id"], name: "index_projects_on_creator_id", using: :btree
+
+  create_table "projects_users", id: false, force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "user_id",    null: false
+  end
 
   create_table "tags", force: :cascade do |t|
     t.string   "name"
@@ -105,6 +111,7 @@ ActiveRecord::Schema.define(version: 20160820183041) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "tags", ["name"], name: "unique_tags_names", unique: true, using: :btree
   add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
 
   create_table "todos", force: :cascade do |t|
@@ -145,7 +152,7 @@ ActiveRecord::Schema.define(version: 20160820183041) do
   add_foreign_key "comments", "articles"
   add_foreign_key "comments", "users"
   add_foreign_key "messages", "users"
-  add_foreign_key "projects", "users"
+  add_foreign_key "projects", "users", column: "creator_id"
   add_foreign_key "tags", "users"
   add_foreign_key "todos", "projects"
   add_foreign_key "todos", "users"

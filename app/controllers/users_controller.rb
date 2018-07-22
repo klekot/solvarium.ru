@@ -4,6 +4,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @new_message  = current_user.messages.build
+    @new_message = current_user.messages.build
   end
 end

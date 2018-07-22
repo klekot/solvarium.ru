@@ -2,7 +2,9 @@ class ProjectsController < ApplicationController
   before_action :correct_current_project, only: :destroy
   
   def index
-    @projects = Project.where(user_id: current_user.id)
+    projects_shared  = Project.includes(:users).where('common' => 1, 'users.id' => current_user.id)
+    @projects_common = (Project.where(common: 1) - projects_shared).sort_by(&:title)
+    @projects_my_own = (Project.where(creator_id: current_user.id) + projects_shared).sort_by(&:title).uniq{|x| x.id}
   end
 
   def show
@@ -17,8 +19,12 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.new project_params
-    @project.user_id = current_user.id
+    @project.creator_id = current_user.id
+    @project.common = :params[:common]
     if @project.save
+      if params[:project][:common] == '1'
+        @project.users << current_user
+      end
       if params[:project][:current] == '1'
         current_user.current_project_id = @project.id
         current_user.save
@@ -36,6 +42,9 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find params[:id]
     if @project.update_attributes project_params
+      if params[:project][:common] == '1'
+        @project.users << current_user
+      end
       if params[:project][:current] == '1'
         current_user.current_project_id = @project.id
         current_user.save
@@ -57,10 +66,22 @@ class ProjectsController < ApplicationController
     redirect_to articles_path
   end
 
+  def join_project
+    project = Project.find(params[:project_id])
+    project.users << current_user
+    redirect_to projects_path
+  end
+
+  def leave_project
+    project = Project.find(params[:project_id])
+    project.users.delete(current_user)
+    redirect_to projects_path
+  end
+
   private
 
   def project_params
-    params.require(:project).permit :title, :description
+    params.require(:project).permit :title, :description, :common
   end
   
   def correct_current_project
