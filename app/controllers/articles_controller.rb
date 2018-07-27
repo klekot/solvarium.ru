@@ -46,7 +46,7 @@ class ArticlesController < ApplicationController
       article_tags.push(tag.name)
     end
     @tags_string = article_tags.join(", ")
-    @my_projects = Project.where(user_id: current_user.id)
+    @my_projects = Project.includes(:users).where("users.id" => current_user.id)
   end
 
   def update
